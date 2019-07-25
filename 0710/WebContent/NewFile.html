@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		//alert("11111");
+		$("#user_id").blur(function() {
+			getInfo();
+		});
+
+	});
+
+	function getInfo() {
+		//alert("1111");
+		$.ajax({
+			url : "user.do",
+			type : "post",
+			data : "user_id=" + $("#user_id").val(),
+			dataType : "json",
+			cache : false,
+			async : true,
+			success : function(users) {
+				//alert("111");
+				//alert(users.user_id+","+users.user_name);
+				if (users != "1") {
+					$("#content").html("users_id-->" + users.user_id
+							+"<br>users_name"+users.user_name
+							+"<br>users_age"+users.user_age
+							+"<br>users_weight"+users.user_weight)
+				}else{
+					$("#content").html("查无此人！");
+				}
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	账户名
+	<input type="text" name="user_id" id="user_id">
+	<br>
+	<div id="content"></div>
+</body>
+</html>
